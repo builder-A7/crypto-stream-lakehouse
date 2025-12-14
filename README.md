@@ -1,6 +1,6 @@
 # ⚡️ CryptoStream: Real-Time HFT Data Lakehouse
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
 ![Apache Spark](https://img.shields.io/badge/Apache%20Spark-Streaming-orange?style=for-the-badge&logo=apachespark)
 ![Apache Kafka](https://img.shields.io/badge/Apache%20Kafka-Ingestion-black?style=for-the-badge&logo=apachekafka)
 ![Delta Lake](https://img.shields.io/badge/Delta%20Lake-Storage-cyan?style=for-the-badge&logo=deltalake)
@@ -11,7 +11,9 @@
 
 It simulates a **High-Frequency Trading (HFT)** environment where market data (ticks) must be captured with millisecond latency, aggregated into OHLCV (Open, High, Low, Close, Volume) metrics, and persisted with ACID properties using **Delta Lake**.
 
-### 🏗 Architecture
+---
+
+## 🏗 Architecture
 The system follows the **Write-Audit-Publish** pattern:
 
 1.  **Source:** Kraken WebSocket API (Live BTC/USD trades).
@@ -20,17 +22,28 @@ The system follows the **Write-Audit-Publish** pattern:
 4.  **Storage:** **Delta Lake** provides versioned Parquet storage with snapshot isolation.
 5.  **Serving:** Ad-hoc analytics via Spark SQL readers.
 
+
+
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start (TL;DR)
+
+> **New to this project?** > 👉 **[Read the Detailed Setup Guide & Troubleshooting](./SETUP.md)**
 
 ### Prerequisites
 * Docker Desktop
-* Java 11 (Required for PySpark)
+* Java 11 (Strict Requirement for Spark)
 * Python 3.9+
 
-### 1. Infrastructure Setup
-Spin up the Kafka Broker and Zookeeper containers:
+### Run with Make
+Open **3 Terminal Windows** and run these commands in order:
+
 ```bash
+# Terminal 1: Infrastructure
 make up
-# Or: docker-compose up -d
+
+# Terminal 2: Ingestion
+make stream-data
+
+# Terminal 3: Processing
+make process-data
