@@ -1,6 +1,6 @@
 import sys
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col, window, avg, stddev, sum as _sum, expr
+from pyspark.sql.functions import from_json, col, window, avg, stddev, sum as _sum, expr, min, max, first, last
 from pyspark.sql.types import StructType, StructField, StringType, FloatType, TimestampType
 
 # --- Configuration ---
@@ -69,7 +69,12 @@ def main():
             avg("price").alias("avg_price"),
             stddev("price").alias("volatility"),
             _sum("volume").alias("total_volume"),
-            expr("count(*)").alias("trade_count")
+            expr("count(*)").alias("trade_count"),
+            first("price", ignorenulls=True).alias("open"),
+            max("price").alias("high"),
+            min("price").alias("low"),
+            last("price", ignorenulls=True).alias("close"),
+            _sum("volume").alias("volume")
         )
 
     # 5. Write Stream to Delta Lake
