@@ -1,0 +1,11 @@
+# Kafka Client for Python to produce messages
+confluent-kafka==2.3.0
+
+# WebSocket client to connect to Crypto Exchanges (e.g., Kraken)
+websocket-client==1.7.0
+
+# PySpark for Stream Processing
+pyspark==3.5.0
+
+# Delta Lake for Spark (to enable ACID storage)
+delta-spark==3.0.0
