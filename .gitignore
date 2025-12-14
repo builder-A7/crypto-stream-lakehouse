@@ -23,3 +23,6 @@ logs/
 
 # Mac OS junk
 .DS_Store
+
+# Misc Notes
+logs.txt
